@@ -28,6 +28,8 @@ bool parse(Param* param, int argc, char* argv[]) {
 
 
 int main(int argc, char* argv[]) {
+	
+	int i = 1;
 	if (!parse(&param, argc, argv))
 		return -1;
 
@@ -58,6 +60,7 @@ int main(int argc, char* argv[]) {
 		if(parse_tcp(packet, header->caplen, ip, &tcp) == false) continue;
 
 
+		printf("packet number%d\n", i++);
 		printf("dst_mac --> %02x:%02x:%02x:%02x:%02x:%02x\n", eth.dst_mac[0], eth.dst_mac[1] ,eth.dst_mac[2], eth.dst_mac[3], eth.dst_mac[4], eth.dst_mac[5]);
 
 		printf("src_mac --> %02x:%02x:%02x:%02x:%02x:%02x\n", eth.src_mac[0], eth.src_mac[1] ,eth.src_mac[2], eth.src_mac[3], eth.src_mac[4], eth.src_mac[5]);
@@ -75,7 +78,7 @@ int main(int argc, char* argv[]) {
 			uint16_t print_len = (tcp.payload_len <= 20) ? tcp.payload_len : 20;
 			printf("payload --> ");
 			for(int i=0; i<print_len; i++){
-				 printf("%02x", tcp.payload[i]);}}
+				 printf("%02x|", tcp.payload[i]);}}
 
 		printf("\n\n");
 	
